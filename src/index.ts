@@ -1,45 +1,44 @@
-import { OpenAPIHono, createRoute, z } from "@hono/zod-openapi";
 import { swaggerUI } from "@hono/swagger-ui";
+import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
+import { z } from "zod";
 
 const app = new OpenAPIHono();
-
-app.openapi(
-  createRoute({
-    method: "get",
-    path: "/",
-    responses: {
-      200: {
-        description: "Respond a message",
-        content: {
-          "application/json": {
-            schema: z.object({
-              message: z.string(),
-            }),
-          },
+// basic route
+// ------ added code -------
+const basicRoute = createRoute({
+  method: "get",
+  path: "/",
+  responses: {
+    200: {
+      content: {
+        "application/json": {
+          schema: z.object({
+            hello: z.string(),
+          }),
         },
       },
+      description: "say hello",
     },
-  }),
-  (c) => {
-    return c.json({
-      message: "hello",
-    });
-  }
-);
-
-app.get(
-  "/ui",
-  swaggerUI({
-    url: "/doc",
-  })
-);
-
-app.doc("/doc", {
-  info: {
-    title: "An API",
-    version: "v1",
   },
-  openapi: "3.1.0",
 });
+
+app.openapi(basicRoute, (c) => {
+  return c.json({ hello: "world" }, 200);
+});
+// ------ end added code -------
+
+// The openapi.json will be available at /doc
+app.doc("/doc", {
+  openapi: "3.0.0",
+  info: {
+    version: "1.0.0",
+    title: "My API",
+  },
+});
+
+// swagger ui doc will be available at {server url}/ui
+// fell free to change the url
+// swaggerUI url must have same path as openapi.json
+app.get("/ui", swaggerUI({ url: "/doc" }));
 
 export default app;
