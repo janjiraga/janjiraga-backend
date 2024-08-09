@@ -13,6 +13,14 @@ Janjiraga REST API is a web service that provides access to [Janjiraga](https://
 
 ## API Specification
 
+| Endpoint          | HTTP     | Description               |
+| ----------------- | -------- | ------------------------- |
+| `/categories`     | `GET`    | Get all categories        |
+| `/categories`     | `POST`   | Add new catetory          |
+| `/categories`     | `DELETE` | Delete all categories     |
+| `/categories/:id` | `DELETE` | Delete one category by id |
+| `/categories/:id` | `PUT`    | Update one category by id |
+
 The OpenAPI Specification for the Janjiraga API offers a detailed description of the API's services. It can be accessed at the path `/api-spec`.
 
 For a more interactive experience, you can use SwaggerUI. It provides a user-friendly interface for exploring and testing the API. You can access SwaggerUI at `/ui`.
