@@ -4,9 +4,23 @@ import { cors } from "hono/cors";
 import { z } from "zod";
 import { prisma } from "../src/libs/db";
 
+const description =
+  "Janjiraga is a social platform designed to bring together sports enthusiasts who share the same passion.";
 const app = new OpenAPIHono();
 
 app.use("/*", cors());
+
+app.onError((err, c) => {
+  return c.json(
+    {
+      code: 500,
+      status: "error",
+      message: err.message,
+    },
+    500
+  );
+});
+
 // basic route
 // ------ added code -------
 const basicRoute = createRoute({
@@ -17,7 +31,8 @@ const basicRoute = createRoute({
       content: {
         "application/json": {
           schema: z.object({
-            hello: z.string(),
+            description: z.string(),
+            ui: z.string(),
           }),
         },
       },
@@ -27,7 +42,7 @@ const basicRoute = createRoute({
 });
 
 app.openapi(basicRoute, (c) => {
-  return c.json({ hello: "world" }, 200);
+  return c.json({ description, ui: "/ui" }, 200);
 });
 // ------ end added code -------
 
@@ -52,6 +67,7 @@ app.doc("/doc", {
   info: {
     version: "1.0.0",
     title: "My API",
+    description,
   },
 });
 
