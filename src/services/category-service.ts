@@ -59,3 +59,9 @@ export const update = async (
     throw e;
   }
 };
+
+export const deleteById = async (id: string) => {
+  return await prisma.category.delete({
+    where: { id },
+  });
+};
