@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { prisma } from "../libs/db";
-import { CreateCategorySchema } from "../schemas/category-schema";
+import { CategorySchema } from "../schemas/category-schema";
 
 export const getAll = async () => {
   try {
@@ -12,7 +12,7 @@ export const getAll = async () => {
   }
 };
 
-export const create = async (body: z.infer<typeof CreateCategorySchema>) => {
+export const create = async (body: z.infer<typeof CategorySchema>) => {
   try {
     const { name } = body;
     const newCategory = await prisma.category.create({
@@ -24,5 +24,38 @@ export const create = async (body: z.infer<typeof CreateCategorySchema>) => {
   } catch (error) {
     console.error(error);
     throw error;
+  }
+};
+
+export const getById = async (id: string) => {
+  try {
+    const category = await prisma.category.findUnique({
+      where: { id },
+    });
+    return category;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const update = async (
+  id: string,
+  body: z.infer<typeof CategorySchema>
+) => {
+  try {
+    const { name } = body;
+
+    const updatedCategory = await prisma.category.update({
+      where: { id },
+      data: {
+        name,
+      },
+    });
+
+    return updatedCategory;
+  } catch (e) {
+    console.error(e);
+    throw e;
   }
 };
