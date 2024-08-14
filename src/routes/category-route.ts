@@ -31,6 +31,34 @@ categoryRoute.openapi(
 
 categoryRoute.openapi(
   {
+    method: "get",
+    path: "/{id}",
+    request: {
+      params: CategoryIdSchema,
+    },
+    description: "Get category by id.",
+    responses: {
+      200: {
+        description: "Successfully get category by id.",
+      },
+    },
+    tags: apiTags,
+  },
+  async (c) => {
+    const id = c.req.param("id")!;
+
+    const category = await categoryService.getById(id);
+
+    return c.json({
+      code: 200,
+      status: "success",
+      category,
+    });
+  }
+);
+
+categoryRoute.openapi(
+  {
     method: "post",
     path: "/",
     request: {
