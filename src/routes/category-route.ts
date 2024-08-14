@@ -167,38 +167,31 @@ categoryRoute.openapi(
     tags: apiTags,
   },
   async (c) => {
-    try {
-      const id = c.req.param("id")!;
+    const id = c.req.param("id")!;
 
-      const targetCategory = await categoryService.getById(id);
+    const targetCategory = await categoryService.getById(id);
 
-      if (!targetCategory) {
-        return c.json(
-          {
-            code: 404,
-            status: "error",
-            message: "Category not found.",
-          },
-          404
-        );
-      }
-
-      const deletedCategory = await categoryService.deleteById(
-        targetCategory.id
-      );
-
+    if (!targetCategory) {
       return c.json(
         {
-          code: 200,
-          status: "success",
-          message: `Product with ID ${deletedCategory.id} has been deleted.`,
-          deletedCategory,
+          code: 404,
+          status: "error",
+          message: "Category not found.",
         },
-        200
+        404
       );
-    } catch (e) {
-      console.error(e);
-      throw e;
     }
+
+    const deletedCategory = await categoryService.deleteById(targetCategory.id);
+
+    return c.json(
+      {
+        code: 200,
+        status: "success",
+        message: `Product with ID ${deletedCategory.id} has been deleted.`,
+        deletedCategory,
+      },
+      200
+    );
   }
 );

@@ -54,14 +54,19 @@ export const update = async (
     });
 
     return updatedCategory;
-  } catch (e) {
-    console.error(e);
-    throw e;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 };
 
 export const deleteById = async (id: string) => {
-  return await prisma.category.delete({
-    where: { id },
-  });
+  try {
+    return await prisma.category.delete({
+      where: { id },
+    });
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
