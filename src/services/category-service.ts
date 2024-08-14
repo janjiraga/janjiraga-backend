@@ -4,7 +4,7 @@ import { CategorySchema } from "../schemas/category-schema";
 
 export const getAll = async () => {
   try {
-    const categories = prisma.category.findMany();
+    const categories = await prisma.category.findMany();
     return categories;
   } catch (error) {
     console.error(error);

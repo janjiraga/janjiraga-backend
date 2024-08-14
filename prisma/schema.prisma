@@ -9,18 +9,18 @@ datasource db {
 
 model Event {
     id              String   @id @default(cuid())
+    slug            String   @unique
     name            String
     price           Int?
     imageUrl        String?  @db.Text
     description     String?  @db.Text
     categoryId      String
     category        Category @relation(fields: [categoryId], references: [id])
-    slug            String
     venueName       String
     venueAddress    String
     latitude        String
     longitude       String
-    maxParticipants Int
+    maxParticipants Int?
     dateTimeStart   DateTime
     dateTimeEnd     DateTime
     createdAt       DateTime @default(now())

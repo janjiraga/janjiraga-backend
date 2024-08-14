@@ -1,4 +1,6 @@
+import { z } from "zod";
 import { prisma } from "../libs/db";
+import { EventSchema } from "../schemas/event-schema";
 
 export const getAll = async (
   page: string = "1", // default value page is 1
@@ -25,5 +27,53 @@ export const getAll = async (
   } catch (error) {
     console.error(error);
     throw error;
+  }
+};
+
+export const create = async (body: z.infer<typeof EventSchema>) => {
+  try {
+    const newEvent = await prisma.event.create({
+      data: {
+        ...body,
+      },
+    });
+    return newEvent;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getById = async (id: string) => {
+  try {
+    const event = await prisma.event.findUnique({
+      where: { id },
+    });
+    return event;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const deleteById = async (id: string) => {
+  return await prisma.event.delete({
+    where: { id },
+  });
+};
+
+export const update = async (id: string, body: z.infer<typeof EventSchema>) => {
+  try {
+    const updatedEvent = await prisma.event.update({
+      where: { id },
+      data: {
+        ...body,
+      },
+    });
+
+    return updatedEvent;
+  } catch (e) {
+    console.error(e);
+    throw e;
   }
 };

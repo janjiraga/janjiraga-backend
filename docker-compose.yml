@@ -1,12 +1,12 @@
 services:
-  backend:
-    image: janjiraga-backend
-    build:
-      context: .
-    ports:
-      - "3000:3000"
-    depends_on:
-      - database
+  # backend:
+  #   image: janjiraga-backend
+  #   build:
+  #     context: .
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - database
   database:
     image: postgres:alpine
     ports:
