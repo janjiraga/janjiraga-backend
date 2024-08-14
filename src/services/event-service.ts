@@ -61,3 +61,19 @@ export const deleteById = async (id: string) => {
     where: { id },
   });
 };
+
+export const update = async (id: string, body: z.infer<typeof EventSchema>) => {
+  try {
+    const updatedEvent = await prisma.event.update({
+      where: { id },
+      data: {
+        ...body,
+      },
+    });
+
+    return updatedEvent;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};

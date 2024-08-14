@@ -127,3 +127,58 @@ eventRoute.openapi(
     }
   }
 );
+
+eventRoute.openapi(
+  {
+    method: "put",
+    path: "/{id}",
+    request: {
+      params: EventIdSchema,
+      body: {
+        content: {
+          "application/json": {
+            schema: EventSchema,
+          },
+        },
+      },
+    },
+    description: "Update event by id.",
+    responses: {
+      201: {
+        description: "Successfully update event.",
+      },
+      404: {
+        description: "Event not found.",
+      },
+    },
+    tags: apiTags,
+  },
+  async (c) => {
+    const id = c.req.param("id")!;
+
+    const targetEvent = eventService.getById(id);
+
+    if (!targetEvent) {
+      return c.json(
+        {
+          code: 404,
+          status: "error",
+          message: "Event not found.",
+        },
+        404
+      );
+    }
+
+    const body: z.infer<typeof EventSchema> = await c.req.json();
+    const updatedEvent = await eventService.update(id, body);
+
+    return c.json(
+      {
+        code: 201,
+        status: "success",
+        updatedEvent,
+      },
+      201
+    );
+  }
+);
