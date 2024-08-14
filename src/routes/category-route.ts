@@ -163,7 +163,7 @@ categoryRoute.openapi(
         {
           code: 200,
           status: "success",
-          message: `Product with ID ${deletedCategory.id} has been deleted.`,
+          message: `Category with ID ${deletedCategory.id} has been deleted.`,
           deletedCategory,
         },
         200
