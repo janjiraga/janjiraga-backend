@@ -1,5 +1,5 @@
 import { swaggerUI } from "@hono/swagger-ui";
-import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
+import { OpenAPIHono } from "@hono/zod-openapi";
 import { cors } from "hono/cors";
 import { eventRoute } from "./routes/event-route";
 import { categoryRoute } from "./routes";

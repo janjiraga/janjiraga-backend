@@ -121,14 +121,14 @@ categoryRoute.openapi(
   async (c) => {
     const id = c.req.param("id")!;
 
-    const targetCategory = categoryService.getById(id);
+    const targetCategory = await categoryService.getById(id);
 
     if (!targetCategory) {
       return c.json(
         {
           code: 404,
           status: "error",
-          message: "Product not found.",
+          message: "Category not found.",
         },
         404
       );
@@ -188,7 +188,7 @@ categoryRoute.openapi(
       {
         code: 200,
         status: "success",
-        message: `Product with ID ${deletedCategory.id} has been deleted.`,
+        message: `Category with ID ${deletedCategory.id} has been deleted.`,
         deletedCategory,
       },
       200

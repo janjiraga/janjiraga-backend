@@ -1,10 +1,6 @@
 import { OpenAPIHono, z } from "@hono/zod-openapi";
 import { eventService } from "../services";
-import {
-  EventQueryParameterSchema,
-  EventSchema,
-  EventIdSchema,
-} from "../schemas/event-schema";
+import { EventSchema, EventIdSchema } from "../schemas/event-schema";
 
 const apiTags = ["Event"];
 
