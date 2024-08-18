@@ -18,8 +18,9 @@ model Event {
     category        Category @relation(fields: [categoryId], references: [id])
     venueName       String
     venueAddress    String
-    latitude        String
-    longitude       String
+    latitude        Float
+    longitude       Float
+    zoomLevel       Int
     maxParticipants Int?
     dateTimeStart   DateTime
     dateTimeEnd     DateTime

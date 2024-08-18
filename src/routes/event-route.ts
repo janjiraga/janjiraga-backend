@@ -14,9 +14,9 @@ eventRoute.openapi(
   {
     method: "get",
     path: "/",
-    request: {
-      query: EventQueryParameterSchema,
-    },
+    // request: {
+    //   query: EventQueryParameterSchema,
+    // },
     description: "Get all events.",
     responses: {
       200: {
@@ -26,15 +26,43 @@ eventRoute.openapi(
     tags: apiTags,
   },
   async (c) => {
-    const page = c.req.query("page");
-    const limit = c.req.query("limit");
-    const q = c.req.query("q");
-    const eventList = await eventService.getAll(page, limit, q);
+    // const page = c.req.query("page");
+    // const limit = c.req.query("limit");
+    // const q = c.req.query("q");
+    // const eventList = await eventService.getAll(page, limit, q);
+    const eventList = await eventService.getAll();
 
     return c.json({
       code: 200,
       status: "success",
       data: eventList,
+    });
+  }
+);
+
+eventRoute.openapi(
+  {
+    method: "get",
+    path: "/{id}",
+    request: {
+      params: EventIdSchema,
+    },
+    description: "Get event by ID.",
+    responses: {
+      200: {
+        description: "Successfully get event.",
+      },
+    },
+    tags: apiTags,
+  },
+  async (c) => {
+    const id = c.req.param("id")!;
+    const event = await eventService.getById(id);
+
+    return c.json({
+      code: 200,
+      status: "success",
+      data: event,
     });
   }
 );
@@ -156,7 +184,7 @@ eventRoute.openapi(
   async (c) => {
     const id = c.req.param("id")!;
 
-    const targetEvent = eventService.getById(id);
+    const targetEvent = await eventService.getById(id);
 
     if (!targetEvent) {
       return c.json(

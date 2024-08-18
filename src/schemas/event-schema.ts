@@ -42,8 +42,9 @@ export const EventSchema = z.object({
     example:
       "Jl. Pintu Satu Senayan, Gelora, Kecamatan Tanah Abang, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10270",
   }),
-  latitude: z.string().openapi({ example: "-6.2172335" }),
-  longitude: z.string().openapi({ example: "106.7989901" }),
+  latitude: z.number().openapi({ example: -6.8933019 }),
+  longitude: z.number().openapi({ example: 106.7989901 }),
+  zoomLevel: z.number().int().positive().openapi({ example: 15 }),
   maxParticipants: z.number().int().positive().openapi({ example: 30 }),
   dateTimeStart: z
     .string()
