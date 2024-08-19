@@ -30,10 +30,6 @@ export const EventSchema = z.object({
     .string()
     .min(5)
     .openapi({ example: "Buat yang suka bola merapat sini" }),
-  categoryId: z
-    .string()
-    .min(5)
-    .openapi({ example: "clzsph7z40001huttely72d92" }),
   venueName: z
     .string()
     .min(5)
@@ -54,6 +50,11 @@ export const EventSchema = z.object({
     .string()
     .datetime()
     .openapi({ example: "2024-08-21T09:00:00Z" }),
+  categoryId: z
+    .string()
+    .min(5)
+    .openapi({ example: "clzsph7zp0006huttjtjf7y5z" }),
+  userId: z.string().openapi({ example: "cm00g37h30000bby8s60eu5kq" }),
 });
 
 export const EventIdSchema = z.object({

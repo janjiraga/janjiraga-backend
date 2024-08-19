@@ -1,6 +1,7 @@
 import { OpenAPIHono, z } from "@hono/zod-openapi";
 import { eventService } from "../services";
 import { EventSchema, EventIdSchema } from "../schemas/event-schema";
+import { checkUserToken } from "../middleware/check-user-token";
 
 const apiTags = ["Event"];
 
@@ -67,6 +68,7 @@ eventRoute.openapi(
   {
     method: "post",
     path: "/",
+    middleware: checkUserToken(),
     request: {
       body: {
         content: {
@@ -103,6 +105,7 @@ eventRoute.openapi(
   {
     method: "delete",
     path: "/{id}",
+    middleware: checkUserToken(),
     request: {
       params: EventIdSchema,
     },
@@ -156,6 +159,7 @@ eventRoute.openapi(
   {
     method: "put",
     path: "/{id}",
+    middleware: checkUserToken(),
     request: {
       params: EventIdSchema,
       body: {
