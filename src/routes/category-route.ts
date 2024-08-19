@@ -7,6 +7,17 @@ const apiTags = ["Category"];
 
 export const categoryRoute = new OpenAPIHono();
 
+categoryRoute.openAPIRegistry.registerComponent(
+  "securitySchemes",
+  "AuthorizationBearer",
+  {
+    type: "http",
+    scheme: "bearer",
+    in: "header",
+    description: "Bearer token",
+  }
+);
+
 categoryRoute.openapi(
   {
     method: "get",
@@ -63,6 +74,11 @@ categoryRoute.openapi(
     method: "post",
     path: "/",
     middleware: checkUserToken(),
+    security: [
+      {
+        AuthorizationBearer: [],
+      },
+    ],
     request: {
       body: {
         content: {
@@ -100,6 +116,11 @@ categoryRoute.openapi(
     method: "put",
     path: "/{id}",
     middleware: checkUserToken(),
+    security: [
+      {
+        AuthorizationBearer: [],
+      },
+    ],
     request: {
       params: CategoryIdSchema,
       body: {
@@ -156,6 +177,11 @@ categoryRoute.openapi(
     method: "delete",
     path: "/{id}",
     middleware: checkUserToken(),
+    security: [
+      {
+        AuthorizationBearer: [],
+      },
+    ],
     request: {
       params: CategoryIdSchema,
     },

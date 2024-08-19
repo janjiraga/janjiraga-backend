@@ -7,6 +7,17 @@ const apiTags = ["Event"];
 
 export const eventRoute = new OpenAPIHono();
 
+eventRoute.openAPIRegistry.registerComponent(
+  "securitySchemes",
+  "AuthorizationBearer",
+  {
+    type: "http",
+    scheme: "bearer",
+    in: "header",
+    description: "Bearer token",
+  }
+);
+
 eventRoute.openapi(
   {
     method: "get",
@@ -69,6 +80,11 @@ eventRoute.openapi(
     method: "post",
     path: "/",
     middleware: checkUserToken(),
+    security: [
+      {
+        AuthorizationBearer: [],
+      },
+    ],
     request: {
       body: {
         content: {
@@ -106,6 +122,11 @@ eventRoute.openapi(
     method: "delete",
     path: "/{id}",
     middleware: checkUserToken(),
+    security: [
+      {
+        AuthorizationBearer: [],
+      },
+    ],
     request: {
       params: EventIdSchema,
     },
@@ -160,6 +181,11 @@ eventRoute.openapi(
     method: "put",
     path: "/{id}",
     middleware: checkUserToken(),
+    security: [
+      {
+        AuthorizationBearer: [],
+      },
+    ],
     request: {
       params: EventIdSchema,
       body: {
