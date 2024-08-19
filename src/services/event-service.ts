@@ -22,6 +22,9 @@ export const getAll = async (
           contains: q,
         },
       },
+      include: {
+        category: true,
+      },
     });
     return events;
   } catch (error) {
@@ -48,6 +51,9 @@ export const getById = async (id: string) => {
   try {
     const event = await prisma.event.findUnique({
       where: { id },
+      include: {
+        category: true,
+      },
     });
     return event;
   } catch (error) {
