@@ -1,6 +1,7 @@
 import { OpenAPIHono, z } from "@hono/zod-openapi";
 import { categoryService } from "../services";
 import { CategoryIdSchema, CategorySchema } from "../schemas/category-schema";
+import { checkUserToken } from "../middleware/check-user-token";
 
 const apiTags = ["Category"];
 
@@ -61,6 +62,7 @@ categoryRoute.openapi(
   {
     method: "post",
     path: "/",
+    middleware: checkUserToken(),
     request: {
       body: {
         content: {
@@ -97,6 +99,7 @@ categoryRoute.openapi(
   {
     method: "put",
     path: "/{id}",
+    middleware: checkUserToken(),
     request: {
       params: CategoryIdSchema,
       body: {
@@ -152,6 +155,7 @@ categoryRoute.openapi(
   {
     method: "delete",
     path: "/{id}",
+    middleware: checkUserToken(),
     request: {
       params: CategoryIdSchema,
     },
