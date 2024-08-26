@@ -10,8 +10,23 @@ export const dataEvents = [
     maxParticipants: 20,
     dateTimeStart: new Date("2024-08-31T07:00:00Z"),
     dateTimeEnd: new Date("2024-08-31T09:00:00Z"),
-    categoryId: "cm0afwxnl0001mthg44x5nbxw",
-    venueId: "cm0afwxpl0008mthgynlrw7p9",
-    userId: "cm0afvp7k0000ofg4gph6il5r",
+    categoryId: "cm0ahuiod00019sl65ccwaqmc",
+    venueId: "cm0ahuizs00089sl6zjkmn8yx",
+    userId: "cm0ahxq2w0004ccelkeo72yvo",
+  },
+  {
+    slug: generateSlug("Weekend Fun Futsal"),
+    name: "Weekend Fun Futsal",
+    price: 50000,
+    imageUrl:
+      "https://lh3.googleusercontent.com/p/AF1QipNsgF60TY8bYQLWnbQuBbMYl_hZ_BUdgpYfyCvM=s680-w680-h510",
+    description:
+      "Lapangan sudah di Booking 2 Jam Just for Fun - Cari Keringet haha",
+    maxParticipants: 20,
+    dateTimeStart: new Date("2024-08-31T07:00:00Z"),
+    dateTimeEnd: new Date("2024-08-31T09:00:00Z"),
+    categoryId: "cm0ahuiqt00049sl60ggeizsu",
+    venueId: "cm0ahuj45000a9sl6q1o0ec3r",
+    userId: "cm0ahxq2w0004ccelkeo72yvo",
   },
 ];
