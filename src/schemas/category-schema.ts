@@ -8,5 +8,13 @@ export const CategoryIdSchema = z.object({
 });
 
 export const CategorySchema = z.object({
-  name: z.string().min(5).openapi({ example: "badminton" }),
+  name: z.string().min(5).openapi({ example: "Tinju" }),
+  slug: z.string().min(5).openapi({ example: "tinju" }),
+  iconUrl: z
+    .string()
+    .url()
+    .openapi({
+      example:
+        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/android/android-original.svg",
+    }),
 });

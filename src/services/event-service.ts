@@ -24,6 +24,8 @@ export const getAll = async (
       },
       include: {
         category: true,
+        venue: true,
+        user: true,
       },
     });
     return events;

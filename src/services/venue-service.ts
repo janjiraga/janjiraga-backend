@@ -1,25 +1,25 @@
 import { z } from "zod";
 import { prisma } from "../libs/db";
-import { CategorySchema } from "../schemas/category-schema";
+import { VenueSchema } from "../schemas/venue-schema";
 
 export const getAll = async () => {
   try {
-    const categories = await prisma.category.findMany();
-    return categories;
+    const venues = await prisma.venue.findMany();
+    return venues;
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
 
-export const create = async (body: z.infer<typeof CategorySchema>) => {
+export const create = async (body: z.infer<typeof VenueSchema>) => {
   try {
-    const newCategory = await prisma.category.create({
+    const newVenue = await prisma.venue.create({
       data: {
         ...body,
       },
     });
-    return newCategory;
+    return newVenue;
   } catch (error) {
     console.error(error);
     throw error;
@@ -28,31 +28,28 @@ export const create = async (body: z.infer<typeof CategorySchema>) => {
 
 export const getById = async (id: string) => {
   try {
-    const category = await prisma.category.findUnique({
+    const venue = await prisma.venue.findUnique({
       where: { id },
     });
-    return category;
+    return venue;
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
 
-export const update = async (
-  id: string,
-  body: z.infer<typeof CategorySchema>
-) => {
+export const update = async (id: string, body: z.infer<typeof VenueSchema>) => {
   try {
     const { name } = body;
 
-    const updatedCategory = await prisma.category.update({
+    const updatedVenue = await prisma.venue.update({
       where: { id },
       data: {
         name,
       },
     });
 
-    return updatedCategory;
+    return updatedVenue;
   } catch (error) {
     console.error(error);
     throw error;
@@ -61,7 +58,7 @@ export const update = async (
 
 export const deleteById = async (id: string) => {
   try {
-    return await prisma.category.delete({
+    return await prisma.venue.delete({
       where: { id },
     });
   } catch (error) {

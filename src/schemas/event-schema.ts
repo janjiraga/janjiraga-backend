@@ -30,17 +30,6 @@ export const EventSchema = z.object({
     .string()
     .min(5)
     .openapi({ example: "Buat yang suka bola merapat sini" }),
-  venueName: z
-    .string()
-    .min(5)
-    .openapi({ example: "Gelora Bung Karno Main Stadium" }),
-  venueAddress: z.string().min(5).openapi({
-    example:
-      "Jl. Pintu Satu Senayan, Gelora, Kecamatan Tanah Abang, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10270",
-  }),
-  latitude: z.number().openapi({ example: -6.8933019 }),
-  longitude: z.number().openapi({ example: 106.7989901 }),
-  zoomLevel: z.number().int().positive().openapi({ example: 15 }),
   maxParticipants: z.number().int().positive().openapi({ example: 30 }),
   dateTimeStart: z
     .string()
@@ -50,11 +39,9 @@ export const EventSchema = z.object({
     .string()
     .datetime()
     .openapi({ example: "2024-08-21T09:00:00Z" }),
-  categoryId: z
-    .string()
-    .min(5)
-    .openapi({ example: "clzsph7zp0006huttjtjf7y5z" }),
-  userId: z.string().openapi({ example: "cm00g37h30000bby8s60eu5kq" }),
+  categoryId: z.string().openapi({ example: "cm0afwxnl0001mthg44x5nbxw" }),
+  userId: z.string().openapi({ example: "cm0afvp7k0000ofg4gph6il5r" }),
+  venueId: z.string().openapi({ example: "cm0afwxpl0008mthgynlrw7p9" }),
 });
 
 export const EventIdSchema = z.object({

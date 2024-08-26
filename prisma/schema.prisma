@@ -14,17 +14,15 @@ model Event {
     price           Int?
     imageUrl        String?  @db.Text
     description     String?  @db.Text
-    venueName       String
-    venueAddress    String
-    latitude        Float
-    longitude       Float
-    zoomLevel       Int
     maxParticipants Int?
     dateTimeStart   DateTime
     dateTimeEnd     DateTime
 
     category   Category @relation(fields: [categoryId], references: [id])
     categoryId String
+
+    venueId String
+    venue   Venue  @relation(fields: [venueId], references: [id])
 
     user   User?   @relation(fields: [userId], references: [id])
     userId String?
@@ -34,9 +32,24 @@ model Event {
 }
 
 model Category {
-    id     String  @id @default(cuid())
-    name   String  @unique
-    events Event[]
+    id      String  @id @default(cuid())
+    name    String  @unique
+    slug    String  @unique
+    iconUrl String  @db.Text
+    events  Event[]
+}
+
+model Venue {
+    id        String  @id @default(cuid())
+    slug      String  @unique
+    name      String
+    address   String
+    imageUrl  String? @db.Text
+    mapsUrl   String
+    latitude  Float
+    longitude Float
+    zoomLevel Int
+    events    Event[]
 }
 
 model User {
@@ -52,7 +65,7 @@ model User {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    event Event[]
+    events Event[]
 }
 
 model Password {

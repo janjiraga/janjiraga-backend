@@ -1,26 +1,50 @@
 export const dataCategories = [
   {
-    name: "badminton",
+    name: "Bulu Tangkis",
+    slug: "bulu-tangkis",
+    iconUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
   },
   {
-    name: "football",
+    name: "Sepak Bola",
+    slug: "sepak-bola",
+    iconUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
   },
   {
-    name: "futsal",
+    name: "Bola Voli",
+    slug: "bola-voli",
+    iconUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
   },
   {
-    name: "run",
+    name: "Bola Basket",
+    slug: "bola-basket",
+    iconUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
   },
   {
-    name: "gym",
+    name: "Futsal",
+    slug: "futsal",
+    iconUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
   },
   {
-    name: "volleyball",
+    name: "Lari",
+    slug: "lari",
+    iconUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
   },
   {
-    name: "basketball",
+    name: "Gym",
+    slug: "gym",
+    iconUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
   },
   {
-    name: "tennis",
+    name: "Tenis Meja",
+    slug: "tenis-meja",
+    iconUrl:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
   },
 ];
