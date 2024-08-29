@@ -32,6 +32,13 @@ export const getAll = async (
               },
             },
           },
+          {
+            category: {
+              slug: {
+                contains: q,
+              },
+            },
+          },
         ],
       },
       include: {
