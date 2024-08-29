@@ -1,6 +1,10 @@
 import { OpenAPIHono, z } from "@hono/zod-openapi";
 import { eventService } from "../services";
-import { EventSchema, EventIdSchema } from "../schemas/event-schema";
+import {
+  EventSchema,
+  EventIdSchema,
+  EventQueryParameterSchema,
+} from "../schemas/event-schema";
 import { checkUserToken } from "../middleware/check-user-token";
 
 const apiTags = ["Event"];
@@ -22,9 +26,9 @@ eventRoute.openapi(
   {
     method: "get",
     path: "/",
-    // request: {
-    //   query: EventQueryParameterSchema,
-    // },
+    request: {
+      query: EventQueryParameterSchema,
+    },
     description: "Get all events.",
     responses: {
       200: {
@@ -34,11 +38,10 @@ eventRoute.openapi(
     tags: apiTags,
   },
   async (c) => {
-    // const page = c.req.query("page");
-    // const limit = c.req.query("limit");
-    // const q = c.req.query("q");
-    // const eventList = await eventService.getAll(page, limit, q);
-    const eventList = await eventService.getAll();
+    const page = c.req.query("page");
+    const limit = c.req.query("limit");
+    const q = c.req.query("q");
+    const eventList = await eventService.getAll(page, limit, q);
 
     return c.json({
       code: 200,

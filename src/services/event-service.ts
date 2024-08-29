@@ -17,10 +17,22 @@ export const getAll = async (
       take,
       skip,
       where: {
-        name: {
-          mode: "insensitive",
-          contains: q,
-        },
+        OR: [
+          {
+            name: {
+              mode: "insensitive",
+              contains: q,
+            },
+          },
+          {
+            category: {
+              name: {
+                mode: "insensitive",
+                contains: q,
+              },
+            },
+          },
+        ],
       },
       include: {
         category: true,
