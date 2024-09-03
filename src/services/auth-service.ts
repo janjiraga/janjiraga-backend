@@ -26,6 +26,7 @@ export async function register(body: z.infer<typeof RegisterSchema>) {
       },
       firstName: body.firstName,
       lastName: body.lastName,
+      phone: body.phone,
     },
   });
 

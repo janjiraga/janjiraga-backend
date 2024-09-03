@@ -11,6 +11,7 @@ export const RegisterSchema = z.object({
   password: z.string().min(6).openapi({ example: "password" }),
   firstName: z.string().openapi({ example: "user" }),
   lastName: z.string().openapi({ example: "user" }),
+  phone: z.string().openapi({ example: "08123456789" }),
 });
 
 export const LoginSchema = z.object({
