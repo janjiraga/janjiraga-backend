@@ -1,6 +1,7 @@
 import { OpenAPIHono, z } from "@hono/zod-openapi";
 import { venueService } from "../services";
 import { VenueIdSchema, VenueSchema } from "../schemas/venue-schema";
+import { checkUserToken } from "../middleware/check-user-token";
 
 const apiTags = ["Venue"];
 
@@ -72,6 +73,12 @@ venueRoute.openapi(
   {
     method: "post",
     path: "/",
+    middleware: checkUserToken(),
+    security: [
+      {
+        AuthorizationBearer: [],
+      },
+    ],
     request: {
       body: {
         content: {
@@ -108,6 +115,12 @@ venueRoute.openapi(
   {
     method: "put",
     path: "/{id}",
+    middleware: checkUserToken(),
+    security: [
+      {
+        AuthorizationBearer: [],
+      },
+    ],
     request: {
       params: VenueIdSchema,
       body: {
@@ -163,6 +176,12 @@ venueRoute.openapi(
   {
     method: "delete",
     path: "/{id}",
+    middleware: checkUserToken(),
+    security: [
+      {
+        AuthorizationBearer: [],
+      },
+    ],
     request: {
       params: VenueIdSchema,
     },
