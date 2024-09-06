@@ -83,6 +83,23 @@ export const getById = async (id: string) => {
   }
 };
 
+export const getBySlug = async (slug: string) => {
+  try {
+    const event = await prisma.event.findUnique({
+      where: { slug },
+      include: {
+        category: true,
+        venue: true,
+        user: true,
+      },
+    });
+    return event;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const deleteById = async (id: string) => {
   return await prisma.event.delete({
     where: { id },

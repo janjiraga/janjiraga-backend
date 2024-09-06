@@ -14,7 +14,7 @@ export const EventQueryParameterSchema = z.object({
   q: z
     .string()
     .min(1)
-    .openapi({ param: { name: "q", in: "query" }, example: "Mabar badminton" })
+    .openapi({ param: { name: "q", in: "query" }, example: "" })
     .optional(),
 });
 
@@ -46,4 +46,8 @@ export const EventSchema = z.object({
 
 export const EventIdSchema = z.object({
   id: z.string().min(5).openapi({ example: "clzt8isvb0001gktlplgahqay" }),
+});
+
+export const EventSlugSchema = z.object({
+  slug: z.string().min(5).openapi({ example: "" }),
 });

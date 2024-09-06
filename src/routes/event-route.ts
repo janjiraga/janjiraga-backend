@@ -4,6 +4,7 @@ import {
   EventSchema,
   EventIdSchema,
   EventQueryParameterSchema,
+  EventSlugSchema,
 } from "../schemas/event-schema";
 import { checkUserToken } from "../middleware/check-user-token";
 
@@ -54,11 +55,11 @@ eventRoute.openapi(
 eventRoute.openapi(
   {
     method: "get",
-    path: "/{id}",
+    path: "/{slug}",
     request: {
-      params: EventIdSchema,
+      params: EventSlugSchema,
     },
-    description: "Get event by ID.",
+    description: "Get event by slug.",
     responses: {
       200: {
         description: "Successfully get event.",
@@ -67,8 +68,8 @@ eventRoute.openapi(
     tags: apiTags,
   },
   async (c) => {
-    const id = c.req.param("id")!;
-    const event = await eventService.getById(id);
+    const slug = c.req.param("slug")!;
+    const event = await eventService.getBySlug(slug);
 
     return c.json({
       code: 200,
