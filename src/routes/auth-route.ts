@@ -2,7 +2,6 @@ import { OpenAPIHono } from "@hono/zod-openapi";
 import { authService } from "../services";
 import { RegisterSchema, LoginSchema } from "../schemas/auth-schema";
 import { checkUserToken } from "../middleware/check-user-token";
-import { prisma } from "../libs/db";
 
 type Bindings = {
   TOKEN: string;
@@ -129,9 +128,7 @@ authRoute.openapi(
     try {
       const user = c.get("user") as { id: string };
 
-      const userData = await prisma.user.findUnique({
-        where: { id: user?.id },
-      });
+      const userData = await authService.getUserProfile(user?.id);
 
       return c.json(
         {

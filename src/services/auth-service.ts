@@ -49,3 +49,15 @@ export async function login(body: z.infer<typeof LoginSchema>) {
 
   return await createToken(user.id);
 }
+
+export async function getUserProfile(id: string) {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id },
+    });
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
