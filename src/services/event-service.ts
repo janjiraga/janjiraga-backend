@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { prisma } from "../libs/db";
 import { EventSchema } from "../schemas/event-schema";
+import { generateSlug } from "../libs/slugify";
 
 export const getAll = async (
   page: string = "1", // default value page is 1
@@ -59,6 +60,7 @@ export const create = async (body: z.infer<typeof EventSchema>) => {
     const newEvent = await prisma.event.create({
       data: {
         ...body,
+        slug: generateSlug(body.name),
       },
     });
     return newEvent;
