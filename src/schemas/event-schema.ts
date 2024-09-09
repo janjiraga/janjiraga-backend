@@ -20,7 +20,7 @@ export const EventQueryParameterSchema = z.object({
 
 export const EventSchema = z.object({
   name: z.string().min(5).openapi({ example: "Fun Football GBK" }),
-  slug: z.string().min(5).openapi({ example: "fun-football-gbk" }),
+  slug: z.string().openapi({ example: "fun-football-gbk" }),
   price: z.number().int().positive().openapi({ example: 100000 }),
   imageUrl: z.string().url().openapi({
     example:
