@@ -1,6 +1,8 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { authService } from "../services";
 import { RegisterSchema, LoginSchema } from "../schemas/auth-schema";
+import { checkUserToken } from "../middleware/check-user-token";
+import { prisma } from "../libs/db";
 
 type Bindings = {
   TOKEN: string;
@@ -94,6 +96,50 @@ authRoute.openapi(
           token,
         },
       });
+    } catch (error) {
+      return c.json(
+        {
+          message: (error as Error).message,
+        },
+        400
+      );
+    }
+  }
+);
+
+authRoute.openapi(
+  {
+    method: "get",
+    path: "/my-profile",
+    middleware: checkUserToken(),
+    security: [
+      {
+        AuthorizationBearer: [],
+      },
+    ],
+    description: "Get current user profile",
+    responses: {
+      200: {
+        description: "Successfully get current user profile.",
+      },
+    },
+    tags: apiTags,
+  },
+  async (c) => {
+    try {
+      const user = c.get("user") as { id: string };
+
+      const userData = await prisma.user.findUnique({
+        where: { id: user?.id },
+      });
+
+      return c.json(
+        {
+          message: "Success",
+          data: userData,
+        },
+        200
+      );
     } catch (error) {
       return c.json(
         {
