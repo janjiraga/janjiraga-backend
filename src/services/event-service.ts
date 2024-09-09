@@ -121,3 +121,18 @@ export const update = async (id: string, body: z.infer<typeof EventSchema>) => {
     throw e;
   }
 };
+
+export const getByUserId = async (userId: string) => {
+  try {
+    const events = await prisma.event.findMany({
+      where: { userId },
+      include: {
+        category: true,
+      },
+    });
+    return events;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

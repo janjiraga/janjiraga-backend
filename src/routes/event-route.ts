@@ -8,9 +8,21 @@ import {
 } from "../schemas/event-schema";
 import { checkUserToken } from "../middleware/check-user-token";
 
+type Bindings = {
+  TOKEN: string;
+};
+
+type Variables = {
+  user: {
+    id: string;
+  };
+};
+
+export type HonoApp = { Bindings: Bindings; Variables: Variables };
+
 const apiTags = ["Event"];
 
-export const eventRoute = new OpenAPIHono();
+export const eventRoute = new OpenAPIHono<HonoApp>();
 
 eventRoute.openAPIRegistry.registerComponent(
   "securitySchemes",
@@ -49,6 +61,48 @@ eventRoute.openapi(
       status: "success",
       data: eventList,
     });
+  }
+);
+
+eventRoute.openapi(
+  {
+    method: "get",
+    path: "/mine",
+    middleware: checkUserToken(),
+    security: [
+      {
+        AuthorizationBearer: [],
+      },
+    ],
+    description: "Get events created by user.",
+    responses: {
+      200: {
+        description: "Successfully get event.",
+      },
+    },
+    tags: apiTags,
+  },
+  async (c) => {
+    try {
+      const user = c.get("user") as { id: string };
+
+      const events = await eventService.getByUserId(user.id);
+
+      return c.json(
+        {
+          message: "Success",
+          data: events,
+        },
+        200
+      );
+    } catch (error) {
+      return c.json(
+        {
+          message: (error as Error).message,
+        },
+        400
+      );
+    }
   }
 );
 
