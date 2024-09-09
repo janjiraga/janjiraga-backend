@@ -7,6 +7,7 @@ import {
   EventSlugSchema,
 } from "../schemas/event-schema";
 import { checkUserToken } from "../middleware/check-user-token";
+import { generateSlug } from "../libs/slugify";
 
 type Bindings = {
   TOKEN: string;
@@ -162,7 +163,10 @@ eventRoute.openapi(
   },
   async (c) => {
     const body: z.infer<typeof EventSchema> = await c.req.json();
-    const newEvent = await eventService.create(body);
+    const newEvent = await eventService.create({
+      ...body,
+      slug: body.slug ?? generateSlug(body.name),
+    });
 
     return c.json(
       {
