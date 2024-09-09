@@ -130,6 +130,7 @@ export const getByUserId = async (userId: string) => {
       where: { userId },
       include: {
         category: true,
+        venue: true,
       },
     });
     return events;
