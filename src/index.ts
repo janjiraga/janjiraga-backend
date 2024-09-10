@@ -7,6 +7,7 @@ import {
   authRoute,
   venueRoute,
   eventParticipantRoute,
+  participantRoute,
 } from "./routes";
 
 const description =
@@ -30,7 +31,8 @@ app.route("/auth", authRoute);
 app.route("/categories", categoryRoute);
 app.route("/venues", venueRoute);
 app.route("/events", eventRoute);
-app.route("/participant", eventParticipantRoute);
+app.route("/event-participants", eventParticipantRoute);
+app.route("/participants", participantRoute);
 
 app.doc("/doc", {
   openapi: "3.0.0",

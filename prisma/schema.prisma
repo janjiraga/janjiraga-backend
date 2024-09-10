@@ -8,22 +8,18 @@ datasource db {
 }
 
 model User {
-    id String @id @default(cuid())
-
-    username  String @unique
-    email     String @unique
-    firstName String
-    lastName  String
-    phone     String @unique
-
-    password Password?
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
+    id             String             @id @default(cuid())
+    username       String             @unique
+    email          String             @unique
+    firstName      String
+    lastName       String
+    phone          String             @unique
+    password       Password?
+    createdAt      DateTime           @default(now())
+    updatedAt      DateTime           @updatedAt
     events         Event[]
     participations EventParticipant[]
-    Participant    Participant[]
+    participant    Participant[]
 }
 
 model Password {
@@ -57,7 +53,7 @@ model Event {
     participants    EventParticipant[]
     createdAt       DateTime           @default(now())
     updatedAt       DateTime           @updatedAt
-    Participant     Participant[]
+    participant     Participant[]
 }
 
 model Participant {

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-export const EventParticipantSchema = z.object({
+export const ParticipantSchema = z.object({
   eventId: z.string().min(5).openapi({}),
   userId: z.string().min(5).openapi({}),
-  participantId: z.string().min(5).openapi({}),
+  isPaid: z.boolean().openapi({}),
 });

@@ -1,7 +1,7 @@
 import { OpenAPIHono, z } from "@hono/zod-openapi";
 import { checkUserToken } from "../middleware/check-user-token";
-import { EventParticipantSchema } from "../schemas/event-participant-schema";
-import { eventParticipantService } from "../services";
+import { ParticipantSchema } from "../schemas/participant-schema";
+import { participantService } from "../services";
 
 type Bindings = {
   TOKEN: string;
@@ -17,9 +17,9 @@ export type HonoApp = { Bindings: Bindings; Variables: Variables };
 
 const apiTags = ["Event"];
 
-export const eventParticipantRoute = new OpenAPIHono<HonoApp>();
+export const participantRoute = new OpenAPIHono<HonoApp>();
 
-eventParticipantRoute.openAPIRegistry.registerComponent(
+participantRoute.openAPIRegistry.registerComponent(
   "securitySchemes",
   "AuthorizationBearer",
   {
@@ -30,7 +30,7 @@ eventParticipantRoute.openAPIRegistry.registerComponent(
   }
 );
 
-eventParticipantRoute.openapi(
+participantRoute.openapi(
   {
     method: "post",
     path: "/",
@@ -49,8 +49,8 @@ eventParticipantRoute.openapi(
     tags: apiTags,
   },
   async (c) => {
-    const body: z.infer<typeof EventParticipantSchema> = await c.req.json();
-    const newEvent = await eventParticipantService.createEventParticipant({
+    const body: z.infer<typeof ParticipantSchema> = await c.req.json();
+    const newEvent = await participantService.createParticipant({
       ...body,
     });
 
