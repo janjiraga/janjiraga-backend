@@ -21,8 +21,9 @@ model User {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    events       Event[]
-    participants Participant[]
+    events         Event[]
+    participations EventParticipant[]
+    Participant    Participant[]
 }
 
 model Password {
@@ -38,44 +39,49 @@ model Password {
 }
 
 model Event {
-    id              String   @id @default(cuid())
-    slug            String   @unique
+    id              String             @id @default(cuid())
+    slug            String             @unique
     name            String
     price           Int?
-    imageUrl        String?  @db.Text
-    description     String?  @db.Text
+    imageUrl        String?            @db.Text
+    description     String?            @db.Text
     maxParticipants Int?
     dateTimeStart   DateTime
     dateTimeEnd     DateTime
-
-    category   Category @relation(fields: [categoryId], references: [id])
-    categoryId String
-
-    venueId String
-    venue   Venue  @relation(fields: [venueId], references: [id])
-
-    user   User?   @relation(fields: [userId], references: [id])
-    userId String?
-
-    participants Participant[]
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    category        Category           @relation(fields: [categoryId], references: [id])
+    categoryId      String
+    venueId         String
+    venue           Venue              @relation(fields: [venueId], references: [id])
+    user            User?              @relation(fields: [userId], references: [id])
+    userId          String?
+    participants    EventParticipant[]
+    createdAt       DateTime           @default(now())
+    updatedAt       DateTime           @updatedAt
+    Participant     Participant[]
 }
 
 model Participant {
-    id String @id @default(cuid())
+    id        String             @id @default(cuid())
+    user      User               @relation(fields: [userId], references: [id])
+    userId    String
+    event     Event              @relation(fields: [eventId], references: [id])
+    eventId   String
+    events    EventParticipant[]
+    isPaid    Boolean
+    createdAt DateTime           @default(now())
+    updatedAt DateTime           @updatedAt
+}
 
-    user   User   @relation(fields: [userId], references: [id])
-    userId String
-
-    event   Event  @relation(fields: [eventId], references: [id])
-    eventId String
-
-    isPaid Boolean
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model EventParticipant {
+    id            String      @id @default(cuid())
+    event         Event       @relation(fields: [eventId], references: [id])
+    eventId       String
+    participant   Participant @relation(fields: [participantId], references: [id])
+    participantId String
+    user          User        @relation(fields: [userId], references: [id])
+    userId        String
+    createdAt     DateTime    @default(now())
+    updatedAt     DateTime    @updatedAt
 }
 
 model Category {
