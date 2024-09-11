@@ -6,7 +6,6 @@ import {
   eventRoute,
   authRoute,
   venueRoute,
-  eventParticipantRoute,
   participantRoute,
 } from "./routes";
 
@@ -31,7 +30,6 @@ app.route("/auth", authRoute);
 app.route("/categories", categoryRoute);
 app.route("/venues", venueRoute);
 app.route("/events", eventRoute);
-app.route("/event-participants", eventParticipantRoute);
 app.route("/participants", participantRoute);
 
 app.doc("/doc", {

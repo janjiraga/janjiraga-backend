@@ -46,6 +46,7 @@ export const getAll = async (
         category: true,
         venue: true,
         user: true,
+        participants: true,
       },
     });
     return events;

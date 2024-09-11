@@ -54,6 +54,10 @@ export async function getUserProfile(id: string) {
   try {
     const user = await prisma.user.findUnique({
       where: { id },
+      include: {
+        events: true,
+        participants: true,
+      },
     });
     return user;
   } catch (error) {

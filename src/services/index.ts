@@ -2,7 +2,6 @@ import * as eventService from "./event-service";
 import * as categoryService from "./category-service";
 import * as authService from "./auth-service";
 import * as venueService from "./venue-service";
-import * as eventParticipantService from "./event-participant-service";
 import * as participantService from "./participant-service";
 
 export {
@@ -10,6 +9,5 @@ export {
   categoryService,
   venueService,
   eventService,
-  eventParticipantService,
   participantService,
 };
