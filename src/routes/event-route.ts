@@ -67,48 +67,6 @@ eventRoute.openapi(
 eventRoute.openapi(
   {
     method: "get",
-    path: "/mine",
-    middleware: checkUserToken(),
-    security: [
-      {
-        AuthorizationBearer: [],
-      },
-    ],
-    description: "Get events created by user.",
-    responses: {
-      200: {
-        description: "Successfully get event.",
-      },
-    },
-    tags: apiTags,
-  },
-  async (c) => {
-    try {
-      const user = c.get("user") as { id: string };
-
-      const events = await eventService.getByUserId(user.id);
-
-      return c.json(
-        {
-          message: "Success",
-          data: events,
-        },
-        200
-      );
-    } catch (error) {
-      return c.json(
-        {
-          message: (error as Error).message,
-        },
-        400
-      );
-    }
-  }
-);
-
-eventRoute.openapi(
-  {
-    method: "get",
     path: "/{slug}",
     request: {
       params: EventSlugSchema,

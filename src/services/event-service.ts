@@ -94,6 +94,7 @@ export const getBySlug = async (slug: string) => {
         category: true,
         venue: true,
         user: true,
+        participants: true,
       },
     });
     return event;
@@ -122,21 +123,5 @@ export const update = async (id: string, body: z.infer<typeof EventSchema>) => {
   } catch (e) {
     console.error(e);
     throw e;
-  }
-};
-
-export const getByUserId = async (userId: string) => {
-  try {
-    const events = await prisma.event.findMany({
-      where: { userId },
-      include: {
-        category: true,
-        venue: true,
-      },
-    });
-    return events;
-  } catch (error) {
-    console.error(error);
-    throw error;
   }
 };
