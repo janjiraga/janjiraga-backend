@@ -18,7 +18,7 @@ type Variables = {
 
 export type HonoApp = { Bindings: Bindings; Variables: Variables };
 
-const apiTags = ["Event"];
+const apiTags = ["Participant"];
 
 export const participantRoute = new OpenAPIHono<HonoApp>();
 
@@ -43,6 +43,15 @@ participantRoute.openapi(
         AuthorizationBearer: [],
       },
     ],
+    request: {
+      body: {
+        content: {
+          "application/json": {
+            schema: ParticipantSchema,
+          },
+        },
+      },
+    },
     description: "Join an event.",
     responses: {
       200: {
