@@ -1,7 +1,13 @@
 import { swaggerUI } from "@hono/swagger-ui";
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { cors } from "hono/cors";
-import { categoryRoute, eventRoute, authRoute, venueRoute } from "./routes";
+import {
+  categoryRoute,
+  eventRoute,
+  authRoute,
+  venueRoute,
+  participantRoute,
+} from "./routes";
 
 const description =
   "Janjiraga is a social platform designed to bring together sports enthusiasts who share the same passion.";
@@ -24,6 +30,7 @@ app.route("/auth", authRoute);
 app.route("/categories", categoryRoute);
 app.route("/venues", venueRoute);
 app.route("/events", eventRoute);
+app.route("/participants", participantRoute);
 
 app.doc("/doc", {
   openapi: "3.0.0",

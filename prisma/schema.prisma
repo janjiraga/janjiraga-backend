@@ -8,74 +8,47 @@ datasource db {
 }
 
 model User {
-    id String @id @default(cuid())
-
-    username  String @unique
-    email     String @unique
-    firstName String
-    lastName  String
-    phone     String @unique
-
-    password Password?
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
+    id           String        @id @default(cuid())
+    username     String        @unique
+    email        String        @unique
+    firstName    String
+    lastName     String
+    phone        String        @unique
+    password     Password?
+    createdAt    DateTime      @default(now())
+    updatedAt    DateTime      @updatedAt
     events       Event[]
     participants Participant[]
 }
 
 model Password {
-    id String @id @default(cuid())
-
-    hash String
-
-    user   User   @relation(fields: [userId], references: [id])
-    userId String @unique
-
+    id        String   @id @default(cuid())
+    hash      String
+    user      User     @relation(fields: [userId], references: [id])
+    userId    String   @unique
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
 model Event {
-    id              String   @id @default(cuid())
-    slug            String   @unique
+    id              String        @id @default(cuid())
+    slug            String        @unique
     name            String
     price           Int?
-    imageUrl        String?  @db.Text
-    description     String?  @db.Text
+    imageUrl        String?       @db.Text
+    description     String?       @db.Text
     maxParticipants Int?
     dateTimeStart   DateTime
     dateTimeEnd     DateTime
-
-    category   Category @relation(fields: [categoryId], references: [id])
-    categoryId String
-
-    venueId String
-    venue   Venue  @relation(fields: [venueId], references: [id])
-
-    user   User?   @relation(fields: [userId], references: [id])
-    userId String?
-
-    participants Participant[]
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-}
-
-model Participant {
-    id String @id @default(cuid())
-
-    user   User   @relation(fields: [userId], references: [id])
-    userId String
-
-    event   Event  @relation(fields: [eventId], references: [id])
-    eventId String
-
-    isPaid Boolean
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    category        Category      @relation(fields: [categoryId], references: [id])
+    categoryId      String
+    venueId         String
+    venue           Venue         @relation(fields: [venueId], references: [id])
+    user            User?         @relation(fields: [userId], references: [id])
+    userId          String?
+    createdAt       DateTime      @default(now())
+    updatedAt       DateTime      @updatedAt
+    participants    Participant[]
 }
 
 model Category {
@@ -97,4 +70,17 @@ model Venue {
     longitude Float
     zoomLevel Int
     events    Event[]
+}
+
+model Participant {
+    id        String   @id @default(cuid())
+    isPaid    Boolean
+    user      User     @relation(fields: [userId], references: [id])
+    userId    String
+    event     Event    @relation(fields: [eventId], references: [id])
+    eventId   String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([userId, eventId]) // Ensures that a user can only join an event once
 }
