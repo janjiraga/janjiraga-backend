@@ -56,7 +56,11 @@ export async function getUserProfile(id: string) {
       where: { id },
       include: {
         events: true,
-        participants: true,
+        participants: {
+          include: {
+            event: true,
+          },
+        },
       },
     });
     return user;
