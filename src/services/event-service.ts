@@ -94,7 +94,11 @@ export const getBySlug = async (slug: string) => {
         category: true,
         venue: true,
         user: true,
-        participants: true,
+        participants: {
+          include: {
+            user: true,
+          },
+        },
       },
     });
     return event;
